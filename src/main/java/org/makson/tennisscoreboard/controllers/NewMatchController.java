@@ -16,7 +16,7 @@ public class NewMatchController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("new-match.jsp").forward(req, resp);
+        req.getRequestDispatcher(req.getContextPath() + "/new-match.jsp").forward(req, resp);
     }
 
     @Override
