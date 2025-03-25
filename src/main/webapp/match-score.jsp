@@ -53,7 +53,7 @@
                     <td class="table-text">4</td>
                     <td class="table-text">40</td>
                     <td class="table-text">
-                        <form method="post" action="${pageContext.request.contextPath}/match-score">
+                        <form method="post" action="${pageContext.request.contextPath}/match-score" class="form-btn">
                             <button type="submit" class="score-btn">Score</button>
                         </form>
                     </td>
@@ -64,7 +64,9 @@
                     <td class="table-text">3</td>
                     <td class="table-text">15</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        <form method="post" action="${pageContext.request.contextPath}/match-score" class="form-btn">
+                            <button type="submit" class="score-btn">Score</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

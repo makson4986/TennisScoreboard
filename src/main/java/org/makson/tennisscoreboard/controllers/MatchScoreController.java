@@ -31,5 +31,8 @@ public class MatchScoreController extends HttpServlet {
         Match currenctMatch = ongoingMatchesService.getMatch(UUID.fromString(uuid));
 
         req.setAttribute("currentMatch", currenctMatch);
+        req.setAttribute("uuid", uuid);
+
+        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
     }
 }
