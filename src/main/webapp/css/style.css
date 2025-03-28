@@ -511,3 +511,8 @@ footer {
 .form-btn {
     margin-bottom: 0px;
 }
+
+div > .tie-break {
+    margin-top: 35px;
+    color: #b40000;
+}

@@ -43,30 +43,47 @@
                     <th class="table-text">Player</th>
                     <th class="table-text">Sets</th>
                     <th class="table-text">Games</th>
-                    <th class="table-text">Points</th>
+                    <c:if test="${currentMatch.isTieBreak()}">
+                        <th class="table-text">Tie-Break Points</th>
+                    </c:if>
+                    <c:if test="${!currentMatch.isTieBreak()}">
+                        <th class="table-text">Points</th>
+                    </c:if>
+                    <c:if test="${currentMatch.isTieBreak()}">
+                        <th class="table-text" style="color: red;">Tie-Break</th>
+                    </c:if>
+                    <c:if test="${soon != null}">
+                        <th class="table-text" style="color: red;">Winner: ${soon}</th>
+                    </c:if>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="player1">
                     <td class="table-text"><c:out value="${currentMatch.getPlayerOne().getName()}"/></td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">4</td>
-                    <td class="table-text">40</td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getSets()}"/></td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getGames()}"/></td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getPoints()}"/></td>
                     <td class="table-text">
-                        <form method="post" action="${pageContext.request.contextPath}/match-score" class="form-btn">
-                            <button type="submit" class="score-btn">Score</button>
-                        </form>
+                        <c:if test="${!currentMatch.isFinished()}">
+                            <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" class="form-btn">
+                                <input type="hidden" name="currentPlayer" value="playerOne">
+                                <button type="submit" class="score-btn">Score</button>
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
                 <tr class="player2">
                     <td class="table-text"><c:out value="${currentMatch.getPlayerTwo().getName()}"/></td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">3</td>
-                    <td class="table-text">15</td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getSets()}"/></td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getGames()}"/></td>
+                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getPoints()}"/></td>
                     <td class="table-text">
-                        <form method="post" action="${pageContext.request.contextPath}/match-score" class="form-btn">
-                            <button type="submit" class="score-btn">Score</button>
-                        </form>
+                        <c:if test="${!currentMatch.isFinished()}">
+                            <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" class="form-btn">
+                                <input type="hidden" name="currentPlayer" value="playerTwo">
+                                <button type="submit" class="score-btn">Score</button>
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
                 </tbody>

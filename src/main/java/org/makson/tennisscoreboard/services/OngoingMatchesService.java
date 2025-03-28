@@ -1,6 +1,6 @@
 package org.makson.tennisscoreboard.services;
 
-import org.makson.tennisscoreboard.Match;
+import org.makson.tennisscoreboard.models.Match;
 import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.repositories.PlayerRepository;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class OngoingMatchesService {
     private static final OngoingMatchesService INSTANCE = new OngoingMatchesService();
-    private final PlayerRepository playerRepository = new PlayerRepository();
+    private final PlayerRepository playerRepository = PlayerRepository.getInstance();
     private final Map<UUID, Match> currentMatches = new ConcurrentHashMap<>();
 
     private OngoingMatchesService() {
