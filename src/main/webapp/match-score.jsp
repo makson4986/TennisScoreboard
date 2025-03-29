@@ -52,9 +52,6 @@
                     <c:if test="${currentMatch.isTieBreak()}">
                         <th class="table-text" style="color: red;">Tie-Break</th>
                     </c:if>
-                    <c:if test="${soon != null}">
-                        <th class="table-text" style="color: red;">Winner: ${soon}</th>
-                    </c:if>
                 </tr>
                 </thead>
                 <tbody>

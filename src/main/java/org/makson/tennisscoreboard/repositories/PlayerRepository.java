@@ -15,11 +15,12 @@ public class PlayerRepository {
     private PlayerRepository() {
     }
 
-    @Transactional
     public Player save(Player player) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.persist(player);
+        session.getTransaction().commit();
         return player;
     }
 
@@ -27,8 +28,8 @@ public class PlayerRepository {
     public Optional<Player> findByName(String name) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
-        return Optional.ofNullable(session.createQuery("select m from Player m where m.name=:name", Player.class)
-                .setParameter("name", name).uniqueResult());
+        return session.createQuery("select m from Player m where m.name=:name", Player.class)
+                .setParameter("name", name).uniqueResultOptional();
     }
 
     public static PlayerRepository getInstance() {

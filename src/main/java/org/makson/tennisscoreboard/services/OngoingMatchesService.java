@@ -1,5 +1,6 @@
 package org.makson.tennisscoreboard.services;
 
+import jakarta.transaction.Transactional;
 import org.makson.tennisscoreboard.models.Match;
 import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.repositories.PlayerRepository;
@@ -21,12 +22,16 @@ public class OngoingMatchesService {
         return currentMatches.get(uuid);
     }
 
+    @Transactional
     public UUID createMatch(String playerOne, String playerTwo) {
         var player1 = playerRepository.findByName(playerOne);
         var player2 = playerRepository.findByName(playerTwo);
 
-        if (player1.isEmpty() || player2.isEmpty()) {
+        if (player1.isEmpty()) {
             player1 = Optional.of(playerRepository.save(Player.builder().name(playerOne).build()));
+        }
+
+        if (player2.isEmpty()) {
             player2 = Optional.of(playerRepository.save(Player.builder().name(playerTwo).build()));
         }
 
@@ -36,8 +41,18 @@ public class OngoingMatchesService {
         return uuid;
     }
 
+    @Transactional
+    public void deleteMatch(UUID uuid) {
+        currentMatches.remove(uuid);
+    }
+
     public static OngoingMatchesService getInstance() {
         return INSTANCE;
     }
+
+//    public static void main(String[] args) {
+//        Player player1 = Player.builder().name("player1").build();
+//        PlayerRepository.getInstance().save(player1);
+//    }
 }
 

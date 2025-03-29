@@ -16,9 +16,9 @@ public class Matches {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
-    public Player players1;
+    public Player player1;
     @ManyToOne
-    public Player players2;
+    public Player player2;
     @ManyToOne
     public Player winner;
 }

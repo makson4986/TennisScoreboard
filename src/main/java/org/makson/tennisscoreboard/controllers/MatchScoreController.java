@@ -32,19 +32,19 @@ public class MatchScoreController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uuid = req.getParameter("uuid");
+        UUID uuid = UUID.fromString(req.getParameter("uuid"));
         String currentPlayer = req.getParameter("currentPlayer");
-        Match currenctMatch = ongoingMatchesService.getMatch(UUID.fromString(uuid));
+        Match currenctMatch = ongoingMatchesService.getMatch(uuid);
 
         matchScoreCalculationService.calculateMatchScore(currenctMatch, currentPlayer);
 
         if (currenctMatch.isFinished()) {
-            System.out.println("Match finished");
+            ongoingMatchesService.deleteMatch(uuid);
+            finishedMatchesPersistenceService.saveMatch(currenctMatch);
         }
 
         req.setAttribute("currentMatch", currenctMatch);
         req.setAttribute("uuid", uuid);
-        req.setAttribute("winner", "soon");
 
         resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
     }
