@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <html>
 <head>
     <meta charset="UTF-8">
@@ -26,8 +27,8 @@
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/matches?page=1">Matches</a>
+                <a class="nav-link" href="${path}/">Home</a>
+                <a class="nav-link" href="${path}/matches?page=1">Matches</a>
             </nav>
         </div>
     </section>
@@ -62,7 +63,7 @@
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getPoints()}"/></td>
                     <td class="table-text">
                         <c:if test="${!currentMatch.isFinished()}">
-                            <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" class="form-btn">
+                            <form method="post" action="${path}/match-score?uuid=${uuid}" class="form-btn">
                                 <input type="hidden" name="currentPlayer" value="playerOne">
                                 <button type="submit" class="score-btn">Score</button>
                             </form>
@@ -76,7 +77,7 @@
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getPoints()}"/></td>
                     <td class="table-text">
                         <c:if test="${!currentMatch.isFinished()}">
-                            <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=${uuid}" class="form-btn">
+                            <form method="post" action="${path}/match-score?uuid=${uuid}" class="form-btn">
                                 <input type="hidden" name="currentPlayer" value="playerTwo">
                                 <button type="submit" class="score-btn">Score</button>
                             </form>

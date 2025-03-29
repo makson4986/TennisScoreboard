@@ -18,11 +18,18 @@ public class MatchesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String filterByName = req.getParameter("filterByName");
+
         int pageNumber = Integer.parseInt(req.getParameter("page"));
         int offset = (pageNumber - 1) * MAX_MATCHES_PER_PAGES;
-
-        var finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(offset, MAX_MATCHES_PER_PAGES);
         int maxPages = finishedMatchesPersistenceService.getAmountMaxPages(MAX_MATCHES_PER_PAGES);
+        List<Matches> finishedMatches;
+
+        if (filterByName == null) {
+            finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(offset, MAX_MATCHES_PER_PAGES);
+        } else {
+            finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(offset, MAX_MATCHES_PER_PAGES, filterByName);
+        }
 
         req.setAttribute("finishedMatches", finishedMatches);
         req.setAttribute("currentPageNumber", pageNumber);

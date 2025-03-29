@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <html>
 <head>
     <meta charset="UTF-8">
@@ -24,8 +25,8 @@
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                <a class="nav-link" href="${pageContext.request.contextPath}/matches?page=1">Matches</a>
+                <a class="nav-link" href="${path}/">Home</a>
+                <a class="nav-link" href="${path}/matches?page=1">Matches</a>
             </nav>
         </div>
     </section>
@@ -34,9 +35,12 @@
     <div class="container">
         <h1>Matches</h1>
         <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text" />
+            <form action="${path}/matches">
+                <input type="hidden" name="page" value="1" />
+                <input class="input-filter" placeholder="Filter by name" type="text" name="filterByName" />
+            </form>
             <div>
-                <a href="#">
+                <a href="${path}/matches?page=1">
                     <button class="btn-filter">Reset Filter</button>
                 </a>
             </div>
@@ -59,17 +63,17 @@
 
         <div class="pagination">
             <c:if test="${currentPageNumber != 1}">
-                <a class="prev" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber - 1}"> < </a>
+                <a class="prev" href="${path}/matches?page=${currentPageNumber - 1}"> < </a>
             </c:if>
             <c:if test="${currentPageNumber - 1 > 0}">
-                <a class="num-page" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber - 1}">${currentPageNumber - 1}</a>
+                <a class="num-page" href="${path}/matches?page=${currentPageNumber - 1}">${currentPageNumber - 1}</a>
             </c:if>
-            <a class="num-page current" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber}">${currentPageNumber}</a>
+            <a class="num-page current" href="${path}/matches?page=${currentPageNumber}">${currentPageNumber}</a>
             <c:if test="${currentPageNumber + 1 <= maxPages}">
-                <a class="num-page" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber + 1}">${currentPageNumber + 1}</a>
+                <a class="num-page" href="${path}/matches?page=${currentPageNumber + 1}">${currentPageNumber + 1}</a>
             </c:if>
             <c:if test="${currentPageNumber != maxPages}">
-                <a class="next" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber + 1}"> > </a>
+                <a class="next" href="${path}/matches?page=${currentPageNumber + 1}"> > </a>
             </c:if>
 
         </div>

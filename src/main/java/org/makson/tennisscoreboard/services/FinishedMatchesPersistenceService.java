@@ -28,6 +28,10 @@ public class FinishedMatchesPersistenceService {
         return matchesRepository.findAllPaginated(offset, limit);
     }
 
+    public List<Matches> getFinishedMatchesPaginated(int offset, int limit, String filterByName) {
+        return matchesRepository.findAllPaginatedByFilter(offset, limit, filterByName);
+    }
+
     public int getAmountMaxPages(int maxRowsPerPage) {
         return (int) Math.ceil(matchesRepository.getAmountRows() / (float) maxRowsPerPage);
     }

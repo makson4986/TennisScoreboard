@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,8 +24,8 @@
     </div>
     <div>
       <nav class="nav-links">
-        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-        <a class="nav-link" href=${pageContext.request.contextPath}/matches?page=1">Matches</a>
+        <a class="nav-link" href="${path}/">Home</a>
+        <a class="nav-link" href=${path}/matches?page=1">Matches</a>
       </nav>
     </div>
   </section>
@@ -34,7 +36,7 @@
     <p>Manage your tennis matches, record results, and track rankings</p>
     <div class="welcome-image"></div>
     <div class="form-container center">
-      <a class="homepage-action-button" href="${pageContext.request.contextPath}/new-match">
+      <a class="homepage-action-button" href="${path}/new-match">
         <button class="btn start-match">
           Start a new match
         </button>
