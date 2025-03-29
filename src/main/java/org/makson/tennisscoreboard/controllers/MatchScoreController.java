@@ -38,13 +38,14 @@ public class MatchScoreController extends HttpServlet {
 
         matchScoreCalculationService.calculateMatchScore(currenctMatch, currentPlayer);
 
+        req.setAttribute("currentMatch", currenctMatch);
+        req.setAttribute("uuid", uuid);
+
         if (currenctMatch.isFinished()) {
             ongoingMatchesService.deleteMatch(uuid);
             finishedMatchesPersistenceService.saveMatch(currenctMatch);
+            req.getRequestDispatcher(req.getContextPath() + "/match-score.jsp").forward(req, resp);
         }
-
-        req.setAttribute("currentMatch", currenctMatch);
-        req.setAttribute("uuid", uuid);
 
         resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
     }

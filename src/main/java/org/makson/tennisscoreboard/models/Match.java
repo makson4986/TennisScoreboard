@@ -7,7 +7,7 @@ import lombok.Setter;
 public class Match {
     private final Player playerOne;
     private final Player playerTwo;
-    private final Score scorePlayerOne = new Score(40, 5, 1);
+    private final Score scorePlayerOne = new Score(40, 6, 1);
     private final Score scorePlayerTwo = new Score(0, 0, 0);
     @Setter
     private boolean isDeuce = false;

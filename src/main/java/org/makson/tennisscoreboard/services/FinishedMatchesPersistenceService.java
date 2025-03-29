@@ -5,6 +5,8 @@ import org.makson.tennisscoreboard.models.Matches;
 import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.repositories.MatchesRepository;
 
+import java.util.List;
+
 public class FinishedMatchesPersistenceService {
     private static final FinishedMatchesPersistenceService INSTANCE = new FinishedMatchesPersistenceService();
     private final MatchesRepository matchesRepository = MatchesRepository.getInstance();
@@ -20,6 +22,14 @@ public class FinishedMatchesPersistenceService {
                 .build();
 
         matchesRepository.save(matches);
+    }
+
+    public List<Matches> getFinishedMatchesPaginated(int offset, int limit) {
+        return matchesRepository.findAllPaginated(offset, limit);
+    }
+
+    public int getAmountMaxPages(int maxRowsPerPage) {
+        return (int) Math.ceil(matchesRepository.getAmountRows() / (float) maxRowsPerPage);
     }
 
     private Player defineWinner(Match match) {

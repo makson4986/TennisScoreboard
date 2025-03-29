@@ -41,7 +41,6 @@ public class OngoingMatchesService {
         return uuid;
     }
 
-    @Transactional
     public void deleteMatch(UUID uuid) {
         currentMatches.remove(uuid);
     }
@@ -49,10 +48,5 @@ public class OngoingMatchesService {
     public static OngoingMatchesService getInstance() {
         return INSTANCE;
     }
-
-//    public static void main(String[] args) {
-//        Player player1 = Player.builder().name("player1").build();
-//        PlayerRepository.getInstance().save(player1);
-//    }
 }
 

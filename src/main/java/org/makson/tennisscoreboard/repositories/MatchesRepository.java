@@ -29,6 +29,18 @@ public class MatchesRepository {
         return session.createQuery("select m from Matches m", Matches.class).getResultList();
     }
 
+    public List<Matches> findAllPaginated(int offset, int limit) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        return session.createQuery("select m from Matches m", Matches.class).setFirstResult(offset).setMaxResults(limit).list();
+    }
+
+    public Long getAmountRows() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        return session.createQuery("select count(*) from Matches", Long.class).getSingleResult();
+    }
+
     public static MatchesRepository getInstance() {
         return INSTANCE;
     }

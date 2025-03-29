@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -23,8 +24,8 @@
         </div>
         <div>
             <nav class="nav-links">
-                <a class="nav-link" href="#">Home</a>
-                <a class="nav-link" href="#">Matches</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/matches?page=1">Matches</a>
             </nav>
         </div>
     </section>
@@ -47,39 +48,30 @@
                 <th>Player Two</th>
                 <th>Winner</th>
             </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
+            <c:forEach var="match" items="${finishedMatches}">
+                <tr>
+                    <td>${match.getPlayer1().getName()}</td>
+                    <td>${match.getPlayer2().getName()}</td>
+                    <td><span class="winner-name-td">${match.getWinner().getName()}</span></td>
+                </tr>
+            </c:forEach>
         </table>
 
         <div class="pagination">
-            <a class="prev" href="#"> < </a>
-            <a class="num-page current" href="#">1</a>
-            <a class="num-page" href="#">2</a>
-            <a class="num-page" href="#">3</a>
-            <a class="next" href="#"> > </a>
+            <c:if test="${currentPageNumber != 1}">
+                <a class="prev" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber - 1}"> < </a>
+            </c:if>
+            <c:if test="${currentPageNumber - 1 > 0}">
+                <a class="num-page" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber - 1}">${currentPageNumber - 1}</a>
+            </c:if>
+            <a class="num-page current" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber}">${currentPageNumber}</a>
+            <c:if test="${currentPageNumber + 1 <= maxPages}">
+                <a class="num-page" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber + 1}">${currentPageNumber + 1}</a>
+            </c:if>
+            <c:if test="${currentPageNumber != maxPages}">
+                <a class="next" href="${pageContext.request.contextPath}/matches?page=${currentPageNumber + 1}"> > </a>
+            </c:if>
+
         </div>
     </div>
 </main>
