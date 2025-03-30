@@ -17,7 +17,7 @@ public class NewMatchController extends BaseController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(req.getContextPath() + "/new-match.jsp").forward(req, resp);
+        req.getRequestDispatcher( "/new-match.jsp").forward(req, resp);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class NewMatchController extends BaseController {
 
         if (!errorMessage.isEmpty()) {
             req.setAttribute("errorMessage", errorMessage);
-            req.getRequestDispatcher(req.getContextPath() + "/new-match.jsp").forward(req, resp);
+            req.getRequestDispatcher("/new-match.jsp").forward(req, resp);
         }
 
         UUID uuid = ongoingMatchesService.createMatch(namePlayerOne, namePlayerTwo);

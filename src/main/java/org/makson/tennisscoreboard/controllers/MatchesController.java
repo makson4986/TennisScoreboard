@@ -33,7 +33,7 @@ public class MatchesController extends BaseController {
         req.setAttribute("currentPageNumber", pageNumber);
         req.setAttribute("maxPages", maxPages);
 
-        req.getRequestDispatcher(req.getContextPath() + "/matches.jsp").forward(req, resp);
+        req.getRequestDispatcher("/matches.jsp").forward(req, resp);
     }
 
     private int tryParsePageToInt(String page, int maxPages) {

@@ -16,7 +16,7 @@ public class BaseController extends HttpServlet {
             String errorMessage = exception.getMessage();
             req.setAttribute("errorMessage", errorMessage);
 
-            req.getRequestDispatcher( req.getContextPath() + "error-pages.jsp").forward(req, resp);
+            req.getRequestDispatcher("/error-pages.jsp").forward(req, resp);
         }
     }
 }
