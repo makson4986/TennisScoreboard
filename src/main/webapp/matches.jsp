@@ -26,7 +26,7 @@
         <div>
             <nav class="nav-links">
                 <a class="nav-link" href="${path}/">Home</a>
-                <a class="nav-link" href="${path}/matches?page=1">Matches</a>
+                <a class="nav-link" href="${path}/matches">Matches</a>
             </nav>
         </div>
     </section>
@@ -72,7 +72,7 @@
             <c:if test="${currentPageNumber + 1 <= maxPages}">
                 <a class="num-page" href="${path}/matches?page=${currentPageNumber + 1}">${currentPageNumber + 1}</a>
             </c:if>
-            <c:if test="${currentPageNumber != maxPages}">
+            <c:if test="${currentPageNumber < maxPages}">
                 <a class="next" href="${path}/matches?page=${currentPageNumber + 1}"> > </a>
             </c:if>
 

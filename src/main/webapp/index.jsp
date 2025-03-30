@@ -25,7 +25,7 @@
     <div>
       <nav class="nav-links">
         <a class="nav-link" href="${path}/">Home</a>
-        <a class="nav-link" href=${path}/matches?page=1">Matches</a>
+        <a class="nav-link" href="${path}/matches">Matches</a>
       </nav>
     </div>
   </section>
@@ -41,7 +41,7 @@
           Start a new match
         </button>
       </a>
-      <a class="homepage-action-button" href="#">
+      <a class="homepage-action-button" href="${path}/matches">
         <button class="btn view-results">
           View match results
         </button>

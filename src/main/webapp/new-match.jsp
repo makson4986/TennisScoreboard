@@ -25,7 +25,7 @@
         <div>
             <nav class="nav-links">
                 <a class="nav-link" href="${path}/">Home</a>
-                <a class="nav-link" href="${path}/matches?page=1">Matches</a>
+                <a class="nav-link" href="${path}/matches">Matches</a>
             </nav>
         </div>
     </section>
@@ -37,6 +37,7 @@
             <div class="new-match-image"></div>
             <div class="form-container center">
                 <form method="post" action="${path}/new-match">
+                    <p style="color: red;">${errorMessage}</p>
                     <label class="label-player" for="playerOne">Player one</label>
                     <input class="input-player" placeholder="Name" type="text" required title="Enter a name" name="namePlayerOne" id="playerOne">
                     <label class="label-player" for="playerTwo">Player two</label>

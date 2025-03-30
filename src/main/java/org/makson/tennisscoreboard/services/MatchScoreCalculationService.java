@@ -1,8 +1,8 @@
 package org.makson.tennisscoreboard.services;
 
-import org.makson.tennisscoreboard.models.Match;
-import org.makson.tennisscoreboard.models.Points;
-import org.makson.tennisscoreboard.models.Score;
+import org.makson.tennisscoreboard.dto.Match;
+import org.makson.tennisscoreboard.dto.Points;
+import org.makson.tennisscoreboard.dto.Score;
 
 public class MatchScoreCalculationService {
     private static final MatchScoreCalculationService INSTANCE = new MatchScoreCalculationService();
@@ -58,6 +58,8 @@ public class MatchScoreCalculationService {
         if (scoreCurrentPlayer.getGames() == scoreOpponent.getGames() &&
                 scoreCurrentPlayer.getGames() == DEFAULT_AMOUNT_GAMES) {
             currentMatch.setTieBreak(true);
+            scoreCurrentPlayer.resetPoints();
+            scoreOpponent.resetPoints();
         }
 
         if ((hasGamesAdvantage(scoreCurrentPlayer)) && (scoreCurrentPlayer.getSets() < DEFAULT_AMOUNT_SETS)) {

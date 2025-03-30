@@ -1,7 +1,6 @@
 package org.makson.tennisscoreboard.services;
 
-import jakarta.transaction.Transactional;
-import org.makson.tennisscoreboard.models.Match;
+import org.makson.tennisscoreboard.dto.Match;
 import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.repositories.PlayerRepository;
 
@@ -22,7 +21,6 @@ public class OngoingMatchesService {
         return currentMatches.get(uuid);
     }
 
-    @Transactional
     public UUID createMatch(String playerOne, String playerTwo) {
         var player1 = playerRepository.findByName(playerOne);
         var player2 = playerRepository.findByName(playerTwo);
@@ -43,6 +41,10 @@ public class OngoingMatchesService {
 
     public void deleteMatch(UUID uuid) {
         currentMatches.remove(uuid);
+    }
+
+    public boolean isMatchExist(UUID uuid) {
+        return currentMatches.containsKey(uuid);
     }
 
     public static OngoingMatchesService getInstance() {

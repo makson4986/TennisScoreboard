@@ -516,3 +516,12 @@ div > .tie-break {
     margin-top: 35px;
     color: #b40000;
 }
+
+.error-text {
+    font-size: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column
+}

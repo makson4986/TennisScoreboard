@@ -1,10 +1,8 @@
 package org.makson.tennisscoreboard.repositories;
 
-import jakarta.transaction.Transactional;
-import lombok.Cleanup;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
+import org.makson.tennisscoreboard.exceptions.DataBaseException;
 import org.makson.tennisscoreboard.models.Matches;
 import org.makson.tennisscoreboard.utils.HibernateUtil;
 
@@ -17,39 +15,44 @@ public class MatchesRepository {
     }
 
     public void save(Matches match) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.persist(match);
-        session.getTransaction().commit();
-    }
-
-    public List<Matches> findAll() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
-        return session.createQuery("select m from Matches m", Matches.class).getResultList();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.persist(match);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new DataBaseException();
+        }
     }
 
     public List<Matches> findAllPaginated(int offset, int limit) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
-        return session.createQuery("select m from Matches m", Matches.class).setFirstResult(offset).setMaxResults(limit).list();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("select m from Matches m", Matches.class).setFirstResult(offset).setMaxResults(limit).list();
+        } catch (HibernateException e) {
+            throw new DataBaseException();
+        }
     }
 
     public List<Matches> findAllPaginatedByFilter(int offset, int limit, String filterByName) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
-        return session.createQuery("""
-                SELECT m
-                FROM Matches m
-                WHERE m.player1.name LIKE :name OR m.player2.name LIKE :name
-                """, Matches.class).setParameter("name", "%" + filterByName + "%").list();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("""
+                            SELECT m
+                            FROM Matches m
+                            WHERE m.player1.name LIKE :name OR m.player2.name LIKE :name
+                            """, Matches.class).setParameter("name", "%" + filterByName + "%")
+                    .setFirstResult(offset)
+                    .setMaxResults(limit)
+                    .list();
+        } catch (HibernateException e) {
+            throw new DataBaseException();
+        }
     }
 
     public Long getAmountRows() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
-        return session.createQuery("select count(*) from Matches", Long.class).getSingleResult();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("select count(*) from Matches", Long.class).getSingleResult();
+        } catch (HibernateException e) {
+            throw new DataBaseException();
+        }
     }
 
     public static MatchesRepository getInstance() {

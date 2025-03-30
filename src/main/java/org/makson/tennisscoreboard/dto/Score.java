@@ -1,4 +1,4 @@
-package org.makson.tennisscoreboard.models;
+package org.makson.tennisscoreboard.dto;
 
 import lombok.Getter;
 import lombok.Setter;

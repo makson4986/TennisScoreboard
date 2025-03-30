@@ -1,6 +1,7 @@
 package org.makson.tennisscoreboard.services;
 
-import org.makson.tennisscoreboard.models.Match;
+import org.makson.tennisscoreboard.dto.Match;
+import org.makson.tennisscoreboard.dto.Page;
 import org.makson.tennisscoreboard.models.Matches;
 import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.repositories.MatchesRepository;
@@ -24,12 +25,16 @@ public class FinishedMatchesPersistenceService {
         matchesRepository.save(matches);
     }
 
-    public List<Matches> getFinishedMatchesPaginated(int offset, int limit) {
-        return matchesRepository.findAllPaginated(offset, limit);
-    }
+    public List<Matches> getFinishedMatchesPaginated(Page page) {
+        int offset = page.offset();
+        int limit = page.limit();
+        String filterByName = page.filterByName();
 
-    public List<Matches> getFinishedMatchesPaginated(int offset, int limit, String filterByName) {
-        return matchesRepository.findAllPaginatedByFilter(offset, limit, filterByName);
+        if (filterByName == null) {
+            return matchesRepository.findAllPaginated(offset, limit);
+        } else {
+            return matchesRepository.findAllPaginatedByFilter(offset, limit, filterByName);
+        }
     }
 
     public int getAmountMaxPages(int maxRowsPerPage) {
