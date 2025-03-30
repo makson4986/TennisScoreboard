@@ -77,11 +77,6 @@
             <artifactId>hibernate-community-dialects</artifactId>
             <version>6.6.10.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.5</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
