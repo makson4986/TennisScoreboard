@@ -31,10 +31,10 @@ public class NewMatchController extends BaseController {
         if (!errorMessage.isEmpty()) {
             req.setAttribute("errorMessage", errorMessage);
             req.getRequestDispatcher("/new-match.jsp").forward(req, resp);
+        } else {
+            UUID uuid = ongoingMatchesService.createMatch(namePlayerOne, namePlayerTwo);
+            resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
         }
-
-        UUID uuid = ongoingMatchesService.createMatch(namePlayerOne, namePlayerTwo);
-        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
     }
 
     private Optional<String> checkNameCorrect(String name) {

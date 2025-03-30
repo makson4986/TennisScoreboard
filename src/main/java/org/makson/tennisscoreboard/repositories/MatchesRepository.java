@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.makson.tennisscoreboard.exceptions.DataBaseException;
 import org.makson.tennisscoreboard.models.Matches;
+import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.List;

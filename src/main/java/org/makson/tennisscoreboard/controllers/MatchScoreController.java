@@ -58,9 +58,11 @@ public class MatchScoreController extends BaseController {
             ongoingMatchesService.deleteMatch(uuid);
             finishedMatchesPersistenceService.saveMatch(currentMatch);
             req.getRequestDispatcher("/match-score.jsp").forward(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
         }
 
-        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
+
     }
 
     private void setMatchAttribute(HttpServletRequest req, Match match, UUID uuid) {

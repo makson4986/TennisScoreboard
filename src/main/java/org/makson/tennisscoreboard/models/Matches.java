@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Matches {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
     public Player player1;

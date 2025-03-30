@@ -26,7 +26,7 @@ public class MatchesController extends BaseController {
         int pageNumber = tryParsePageToInt(pageParameter, maxPages);
         int offset = (pageNumber - 1) * MAX_MATCHES_PER_PAGES;
 
-        List<Matches> finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(new Page(offset, maxPages, filterByName));
+        List<Matches> finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(new Page(offset, MAX_MATCHES_PER_PAGES, filterByName));
 
 
         req.setAttribute("finishedMatches", finishedMatches);
