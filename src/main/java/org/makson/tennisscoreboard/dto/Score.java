@@ -1,6 +1,8 @@
 package org.makson.tennisscoreboard.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -9,15 +11,6 @@ public class Score {
     private int points;
     private int games;
     private int sets;
-
-    public Score() {
-    }
-
-    public Score(int points, int games, int sets) {
-        this.points = points;
-        this.games = games;
-        this.sets = sets;
-    }
 
     public void addPoints(int points) {
         this.points += points;

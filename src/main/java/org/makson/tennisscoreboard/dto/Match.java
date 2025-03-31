@@ -8,8 +8,8 @@ import org.makson.tennisscoreboard.models.Player;
 public class Match {
     private final Player playerOne;
     private final Player playerTwo;
-    private final Score scorePlayerOne = new Score(40, 6, 1);
-    private final Score scorePlayerTwo = new Score(0, 0, 0);
+    private final Score scorePlayerOne = new Score();
+    private final Score scorePlayerTwo = new Score();
     @Setter
     private boolean isDeuce = false;
     @Setter
