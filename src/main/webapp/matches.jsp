@@ -36,11 +36,10 @@
         <h1>Matches</h1>
         <div class="input-container">
             <form action="${path}/matches">
-                <input type="hidden" name="page" value="1" />
                 <input class="input-filter" placeholder="Filter by name" type="text" name="filterByName" />
             </form>
             <div>
-                <a href="${path}/matches?page=1">
+                <a href="${path}/matches">
                     <button class="btn-filter">Reset Filter</button>
                 </a>
             </div>
@@ -68,7 +67,9 @@
             <c:if test="${currentPageNumber - 1 > 0}">
                 <a class="num-page" href="${path}/matches?page=${currentPageNumber - 1}">${currentPageNumber - 1}</a>
             </c:if>
-            <a class="num-page current" href="${path}/matches?page=${currentPageNumber}">${currentPageNumber}</a>
+            <c:if test="${maxPages > 1}">
+                <a class="num-page current" href="${path}/matches?page=${currentPageNumber}">${currentPageNumber}</a>
+            </c:if>
             <c:if test="${currentPageNumber + 1 <= maxPages}">
                 <a class="num-page" href="${path}/matches?page=${currentPageNumber + 1}">${currentPageNumber + 1}</a>
             </c:if>

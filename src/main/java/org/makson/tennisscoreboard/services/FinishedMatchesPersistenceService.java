@@ -41,6 +41,10 @@ public class FinishedMatchesPersistenceService {
         return (int) Math.ceil(matchesRepository.getAmountRows() / (float) maxRowsPerPage);
     }
 
+    public int getAmountMaxPages(int maxRowsPerPage, String filterByName) {
+        return (int) Math.ceil(matchesRepository.getAmountRows(filterByName) / (float) maxRowsPerPage);
+    }
+
     private Player defineWinner(Match match) {
         if (match.getScorePlayerOne().getSets() == 2) {
             return match.getPlayerOne();

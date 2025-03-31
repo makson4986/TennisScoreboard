@@ -4,7 +4,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.makson.tennisscoreboard.exceptions.DataBaseException;
 import org.makson.tennisscoreboard.models.Matches;
-import org.makson.tennisscoreboard.models.Player;
 import org.makson.tennisscoreboard.utils.HibernateUtil;
 
 import java.util.List;
@@ -51,6 +50,19 @@ public class MatchesRepository {
     public Long getAmountRows() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("select count(*) from Matches", Long.class).getSingleResult();
+        } catch (HibernateException e) {
+            throw new DataBaseException();
+        }
+    }
+
+    public Long getAmountRows(String filterByName) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("""
+                    select count(*) 
+                    from Matches m
+                    WHERE m.player1.name LIKE :name OR m.player2.name LIKE :name""", Long.class)
+                    .setParameter("name", "%" + filterByName + "%")
+                    .getSingleResult();
         } catch (HibernateException e) {
             throw new DataBaseException();
         }

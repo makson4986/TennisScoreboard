@@ -2,6 +2,7 @@ package org.makson.tennisscoreboard.utils;
 
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -19,6 +20,5 @@ public class HibernateUtil {
         configuration.configure();
         return configuration.buildSessionFactory();
     }
-
 }
 

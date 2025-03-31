@@ -22,12 +22,18 @@ public class MatchesController extends BaseController {
         String filterByName = req.getParameter("filterByName");
         String pageParameter = req.getParameter("page");
 
-        int maxPages = finishedMatchesPersistenceService.getAmountMaxPages(MAX_MATCHES_PER_PAGES);
+        int maxPages;
+
+        if (filterByName == null) {
+            maxPages = finishedMatchesPersistenceService.getAmountMaxPages(MAX_MATCHES_PER_PAGES);
+        } else {
+            maxPages = finishedMatchesPersistenceService.getAmountMaxPages(MAX_MATCHES_PER_PAGES, filterByName);
+        }
+
         int pageNumber = tryParsePageToInt(pageParameter, maxPages);
         int offset = (pageNumber - 1) * MAX_MATCHES_PER_PAGES;
 
         List<Matches> finishedMatches = finishedMatchesPersistenceService.getFinishedMatchesPaginated(new Page(offset, MAX_MATCHES_PER_PAGES, filterByName));
-
 
         req.setAttribute("finishedMatches", finishedMatches);
         req.setAttribute("currentPageNumber", pageNumber);
@@ -39,7 +45,7 @@ public class MatchesController extends BaseController {
     private int tryParsePageToInt(String page, int maxPages) {
         int pageNumber;
 
-        if (page == null) {
+        if (page == null || page.equals("0")) {
             return 1;
         }
 
@@ -50,7 +56,7 @@ public class MatchesController extends BaseController {
         }
 
         if (pageNumber < 1 || pageNumber > maxPages) {
-            throw new BadRequestException("Page number cannot be less than 1 or greater than the maximum");
+            throw new BadRequestException("Page number cannot be less than 0 or greater than the maximum");
         }
 
         return pageNumber;

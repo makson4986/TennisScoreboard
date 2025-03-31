@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
+@Table(name = "matches")
 public class Matches {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
