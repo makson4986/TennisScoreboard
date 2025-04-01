@@ -1,20 +1,15 @@
 package org.makson.tennisscoreboard.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 public class Score {
     @Setter
-    private int points;
+    private Point points = Point.ZERO;
     private int games;
     private int sets;
-
-    public void addPoints(int points) {
-        this.points += points;
-    }
+    private int tieBreaksPoints;
 
     public void addGames(int games) {
         this.games += games;
@@ -24,11 +19,20 @@ public class Score {
         this.sets += sets;
     }
 
+    public void addTieBreaksPoints(int tieBreaksPoints) {
+        this.tieBreaksPoints += tieBreaksPoints;
+    }
+
     public void resetPoints() {
-        points = 0;
+        points = Point.ZERO;
     }
 
     public void resetGames() {
         games = 0;
     }
+
+    public void resetTieBreaksPoints() {
+        tieBreaksPoints = 0;
+    }
+
 }

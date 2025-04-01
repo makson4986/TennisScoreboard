@@ -37,8 +37,8 @@ public class MatchesRepository {
             return session.createQuery("""
                             SELECT m
                             FROM Matches m
-                            WHERE m.player1.name LIKE :name OR m.player2.name LIKE :name
-                            """, Matches.class).setParameter("name", "%" + filterByName + "%")
+                            WHERE LOWER(m.player1.name) LIKE LOWER(:name) OR LOWER(m.player2.name) LIKE LOWER(:name)
+                            """, Matches.class).setParameter("name", "%" + filterByName.toLowerCase() + "%")
                     .setFirstResult(offset)
                     .setMaxResults(limit)
                     .list();
@@ -60,8 +60,9 @@ public class MatchesRepository {
             return session.createQuery("""
                     select count(*) 
                     from Matches m
-                    WHERE m.player1.name LIKE :name OR m.player2.name LIKE :name""", Long.class)
-                    .setParameter("name", "%" + filterByName + "%")
+                    WHERE LOWER(m.player1.name) LIKE LOWER(:name) OR LOWER(m.player2.name) LIKE LOWER(:name)
+                    """, Long.class)
+                    .setParameter("name", "%" + filterByName.toLowerCase() + "%")
                     .getSingleResult();
         } catch (HibernateException e) {
             throw new DataBaseException();

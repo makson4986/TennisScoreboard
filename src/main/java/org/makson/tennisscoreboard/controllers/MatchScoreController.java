@@ -31,7 +31,6 @@ public class MatchScoreController extends BaseController {
             throw new DataNotFoundException("The match does not exist or has ended");
         }
 
-
         setMatchAttribute(req, currentMatch, uuid);
 
         req.getRequestDispatcher("/match-score.jsp").forward(req, resp);

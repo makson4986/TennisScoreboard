@@ -60,7 +60,12 @@
                     <td class="table-text"><c:out value="${currentMatch.getPlayerOne().getName()}"/></td>
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getSets()}"/></td>
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getGames()}"/></td>
-                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getPoints()}"/></td>
+                    <c:if test="${currentMatch.isTieBreak()}">
+                        <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getTieBreaksPoints()}"/></td>
+                    </c:if>
+                    <c:if test="${!currentMatch.isTieBreak()}">
+                        <td class="table-text"><c:out value="${currentMatch.getScorePlayerOne().getPoints().getPoint()}"/></td>
+                    </c:if>
                     <td class="table-text">
                         <c:if test="${!currentMatch.isFinished()}">
                             <form method="post" action="${path}/match-score?uuid=${uuid}" class="form-btn">
@@ -74,7 +79,12 @@
                     <td class="table-text"><c:out value="${currentMatch.getPlayerTwo().getName()}"/></td>
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getSets()}"/></td>
                     <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getGames()}"/></td>
-                    <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getPoints()}"/></td>
+                    <c:if test="${currentMatch.isTieBreak()}">
+                        <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getTieBreaksPoints()}"/></td>
+                    </c:if>
+                    <c:if test="${!currentMatch.isTieBreak()}">
+                        <td class="table-text"><c:out value="${currentMatch.getScorePlayerTwo().getPoints().getPoint()}"/></td>
+                    </c:if>
                     <td class="table-text">
                         <c:if test="${!currentMatch.isFinished()}">
                             <form method="post" action="${path}/match-score?uuid=${uuid}" class="form-btn">
