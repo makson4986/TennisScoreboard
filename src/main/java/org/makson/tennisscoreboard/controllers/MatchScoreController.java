@@ -56,7 +56,7 @@ public class MatchScoreController extends BaseController {
         if (currentMatch.isFinished()) {
             ongoingMatchesService.deleteMatch(uuid);
             finishedMatchesPersistenceService.saveMatch(currentMatch);
-            req.getRequestDispatcher("/match-score.jsp").forward(req, resp);
+            req.getRequestDispatcher("/finished-match.jsp").forward(req, resp);
         } else {
             resp.sendRedirect(req.getContextPath() + "/match-score?uuid=%s".formatted(uuid));
         }
