@@ -62,7 +62,7 @@ public class MatchScoreCalculationService {
         scoreCurrentPlayer.resetPoints();
         scoreOpponent.resetPoints();
 
-        if (hasGamesAdvantage(scoreCurrentPlayer)) {
+        if (hasGamesAdvantage(scoreCurrentPlayer, scoreOpponent)) {
             setPlayerSets(currentMatch, scoreCurrentPlayer, scoreOpponent);
         }
     }
@@ -111,8 +111,9 @@ public class MatchScoreCalculationService {
         return (scoreCurrentPlayer.getPoints().equals(Point.WIN_POINT)) && !scoreOpponent.getPoints().equals(Point.WIN_POINT);
     }
 
-    private boolean hasGamesAdvantage(Score scoreCurrentPlayer) {
-        return scoreCurrentPlayer.getGames() > DEFAULT_AMOUNT_GAMES;
+    private boolean hasGamesAdvantage(Score scoreCurrentPlayer, Score scoreOpponent) {
+        return scoreCurrentPlayer.getGames() >= DEFAULT_AMOUNT_GAMES &&
+                scoreCurrentPlayer.getGames() - scoreOpponent.getGames() >= 2;
     }
 
     private boolean hasDeuceAdvantage(Score scoreCurrentPlayer) {
